@@ -1,14 +1,39 @@
-import { StyleSheet } from 'react-native';
+import * as React from 'react';
+import { useState } from 'react';
+
+import { NativeSyntheticEvent, ScrollView, StyleSheet, Text, TextInputSubmitEditingEventData } from 'react-native';
 
 import { RootTabScreenProps } from '../types';
-import {View} from 'react-native';
+import { View, TextInput } from 'react-native';
 
 export default function TerminalScreen({ navigation }: RootTabScreenProps<'Terminal'>) {
+  const [text, setText] = useState('');
+  const [lines, setLines] = useState<string[]>([]);
+
+  const onSubmit = (e: NativeSyntheticEvent<TextInputSubmitEditingEventData>) => {
+    const sentText: string = e.nativeEvent.text;
+    setLines((last) => [...last, sentText]);
+    setText('');
+  }
+
   return (
-    <View style={[styles.container, {
-      flexDirection:"column"
-      }]}
-    >    
+    <View style={styles.container}>
+      <ScrollView
+        style={styles.scrollable}
+        showsVerticalScrollIndicator
+      >
+        <Text style={styles.text}>
+          {lines.map((line) => `${line}\n`)}
+        </Text>
+      </ScrollView>
+      <TextInput
+        autoFocus
+        value={text}
+        onChangeText={setText}
+        style={styles.input}
+        onSubmitEditing={onSubmit}
+        placeholder={'Escribe cualquier weá'}
+      />
     </View>
   );
 }
@@ -16,17 +41,22 @@ export default function TerminalScreen({ navigation }: RootTabScreenProps<'Termi
 const styles = StyleSheet.create({
   container: {
     flex: 1,
-    padding:2
-    /* alignItems: 'center',
-    justifyContent: 'center', */
+    padding: 5
   },
-  title: {
+  input: {
+    borderColor: '#000',
+    borderWidth: 1,
+    borderStyle: 'solid',
+    height: 40,
+    padding: 10,
+  },
+  scrollable: {
+    backgroundColor: '#212121',
+    padding: 5,
+  },
+  text: {
+    flex: 1,
+    color: '#fff',
     fontSize: 20,
-    fontWeight: 'bold',
-  },
-  /* separator: {
-    marginVertical: 30,
-    height: 1,
-    width: '80%',
-  }, */
+  }
 });
