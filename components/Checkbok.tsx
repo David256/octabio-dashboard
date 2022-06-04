@@ -4,16 +4,18 @@ import { Pressable, View, Text, StyleSheet } from 'react-native';
 
 export interface CheckboxProps {
   children?: React.ReactNode,
+  initialValue?: boolean,
   onCheck?: (isChecked: boolean) => void,
 };
 
 export default function Checkbox(props: CheckboxProps) {
   const {
     children='',
+    initialValue=false,
     onCheck=() => {},
   } = props;
 
-  const [isChecked, setIsChecked] = useState(false);
+  const [isChecked, setIsChecked] = useState(initialValue);
 
   const onPress = () => {
     setIsChecked(!isChecked);

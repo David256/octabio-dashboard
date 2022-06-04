@@ -5,8 +5,11 @@ import { Text, View } from '../../components/Themed';
 import Separator from '../../components/Separator';
 
 import Checkbox from '../../components/Checkbok';
+import useGlobalSettings from '../../hooks/useGlobalSettings';
 
 export default function SoundSettingsScreen() {
+  const {globalSettings, updateGlobalSettings} = useGlobalSettings();
+
   return (
     <View style={styles.container}>
       <Text style={styles.title}>Reproduce un sonido cuando el sensor reciba datos</Text>
