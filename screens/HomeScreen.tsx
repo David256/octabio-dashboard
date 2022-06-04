@@ -6,12 +6,10 @@ import SensorStats from '../components/SensorStats';
 export default function HomeScreen() {
   return (
     <View style={[styles.container, {
-      // Try setting `flexDirection` to `"row"`.
-      flexDirection: "column"
-    }]}>
-      {/* <Text style={styles.title}>Tab Two</Text>
-      <View style={styles.separator} lightColor="#eee" darkColor="rgba(255,255,255,0.1)" />
-      <EditScreenInfo path="/screens/HomeScreen.tsx" /> */}
+        // Try setting `flexDirection` to `"row"`.
+        flexDirection: "column"
+      }]}
+    >
       <SensorStats title="Monóxido de carbono:" percentage={0.1}/>
       <SensorStats title="Humedad:" percentage={0.9}/>
       <SensorStats title="Intensidad luminosa::" percentage={0.9}/>
