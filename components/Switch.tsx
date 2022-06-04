@@ -1,20 +1,24 @@
 import * as React from 'react';
-import { useState } from 'react';
+import { useState, useEffect } from 'react';
 import { Pressable, View, StyleSheet, Text } from 'react-native';
 import { colorGray, colorGreen } from '../constants/Colors';
 
 export interface SwitchProps {
   left: string,
   right: string,
+  value?: boolean,
+  setValue?: (value: boolean) => void,
 };
 
 export function Switch(props: SwitchProps) {
   const {
     left,
     right,
+    value=false,
+    setValue=() => {},
   } = props;
 
-  const [modo, setModo] = useState(false);
+  const [modo, setModo] = useState(value);
 
   const onToggle = () => {
     setModo(!modo);
@@ -23,7 +27,11 @@ export function Switch(props: SwitchProps) {
   const getColorStyle = (wanted: boolean) => {
     if (wanted === modo) return { backgroundColor: colorGreen }
     return { backgroundColor: colorGray };
-  }
+  };
+
+  useEffect(() => {
+    setValue(modo);
+  }, [modo]);
 
   return (
     <Pressable onPress={onToggle}>
