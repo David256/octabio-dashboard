@@ -1,30 +1,31 @@
 import React from "react";
-import {Text} from './Themed';
+import { Text } from './Themed';
 import * as Progress from 'react-native-progress';
-import {View, StyleSheet} from 'react-native'
+import { View, StyleSheet } from 'react-native'
 
+export interface SensorStatsProps {
+  title: string,
+  percentage: number,
+};
 
-export default function SensorStats(props){
-    const {title, percentage} = props;
-    return (
-        <View style={styles.container}>
-            <View >
-                <Text style={styles.labelText}>{title}</Text>
-                <Progress.Bar height={15} progress={percentage} width={300} />
-            </View>
-        </View>
-
-    )
-}
+export default function SensorStats(props: SensorStatsProps) {
+  const { title, percentage } = props;
+  return (
+    <View style={styles.container}>
+      <Text style={styles.text}>{title}</Text>
+      <Progress.Bar height={10} progress={percentage} width={null}/>
+    </View>
+  );
+};
 
 const styles = StyleSheet.create({
-    container: {
-        width:'100%',
-        alignItems: 'center',
-        justifyContent: 'center',
-    },
-    labelText:{
-        paddingTop:40,
-        fontSize:20
-    }
+  container: {
+    marginBottom: 10,
+    flexDirection: 'column',
+    justifyContent: 'flex-start',
+    width: '100%',
+  },
+  text: {
+    fontSize: 20
+  },
 });
