@@ -9,6 +9,7 @@ import GraphScreen from '../screens/GraphScreen';
 import { RootTabParamList, RootTabScreenProps } from '../types';
 
 import LedControls from '../components/LedControls';
+import Strings from '../constants/Strings';
 
 /**
  * A bottom tab navigator displays tab buttons on the bottom of the display to switch screens.
@@ -32,7 +33,7 @@ export default function BottomTabNavigator() {
         component={TerminalScreen} 
         options={({ navigation }: RootTabScreenProps<'Terminal'>) => ({
           /* title: 'Hola', */
-          headerTitle: "App Name - Terminal",
+          headerTitle: `${Strings.appName} - Terminal`,
           tabBarLabel : "",
           tabBarIcon: ({ color }) => <TabBarIcon name="terminal" color={color} />,
           headerRight: () => <LedControls />,
@@ -44,7 +45,7 @@ export default function BottomTabNavigator() {
         options={{
           /* title: '', */
           tabBarLabel : "",
-          headerTitle: "App Name",
+          headerTitle: `${Strings.appName}`,
           tabBarIcon: ({ color }) => <TabBarIcon name="home" color={color} />,
           headerRight: () => <LedControls />,
         }}
@@ -55,7 +56,7 @@ export default function BottomTabNavigator() {
         options={{
           /* title: '', */
           tabBarLabel : "",
-          headerTitle: "App Name - Graph",
+          headerTitle: `${Strings.appName} - Graph`,
           tabBarIcon: ({ color }) => <TabBarIcon name="pie-chart" color={color} />,
           headerRight: () => <LedControls />,
         }}
