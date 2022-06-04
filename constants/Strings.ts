@@ -1,3 +1,3 @@
 export default {
-  appName: 'Obtabio Dashboard',
+  appName: 'Octabio Dashboard',
 };
