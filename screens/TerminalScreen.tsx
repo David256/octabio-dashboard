@@ -8,9 +8,12 @@ import { View, TextInput } from 'react-native';
 import Colors from '../constants/Colors';
 import useColorScheme from '../hooks/useColorScheme';
 
+import Checkbox from '../components/Checkbok';
+
 export default function TerminalScreen({ navigation }: RootTabScreenProps<'Terminal'>) {
   const colorScheme = useColorScheme();
 
+  const [enableReceiveLog, setEnableReceiveLog] = useState(false);
   const [text, setText] = useState('');
   const [lines, setLines] = useState<string[]>([]);
 
@@ -22,6 +25,11 @@ export default function TerminalScreen({ navigation }: RootTabScreenProps<'Termi
 
   return (
     <View style={styles.container}>
+      <Checkbox
+        onCheck={setEnableReceiveLog}
+      >
+        Recibir mensajes
+      </Checkbox>
       <ScrollView
         style={styles.scrollable}
         showsVerticalScrollIndicator
