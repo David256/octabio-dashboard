@@ -5,8 +5,12 @@ import { NativeSyntheticEvent, ScrollView, StyleSheet, Text, TextInputSubmitEdit
 
 import { RootTabScreenProps } from '../types';
 import { View, TextInput } from 'react-native';
+import Colors from '../constants/Colors';
+import useColorScheme from '../hooks/useColorScheme';
 
 export default function TerminalScreen({ navigation }: RootTabScreenProps<'Terminal'>) {
+  const colorScheme = useColorScheme();
+
   const [text, setText] = useState('');
   const [lines, setLines] = useState<string[]>([]);
 
@@ -30,7 +34,7 @@ export default function TerminalScreen({ navigation }: RootTabScreenProps<'Termi
         autoFocus
         value={text}
         onChangeText={setText}
-        style={styles.input}
+        style={[styles.input, {color: Colors[colorScheme].textInput}]}
         onSubmitEditing={onSubmit}
         placeholder={'Escribe cualquier weá'}
       />

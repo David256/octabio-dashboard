@@ -12,6 +12,7 @@ export default {
     tintInactive: tintInactiveColorLight,
     tabIconDefault: '#ccc',
     tabIconSelected: tintColorLight,
+    textInput: '#000',
   },
   dark: {
     text: '#fff',
@@ -20,6 +21,7 @@ export default {
     tintInactive: tintInactiveColorDark,
     tabIconDefault: '#ccc',
     tabIconSelected: tintColorDark,
+    textInput: '#fff',
   },
   led: {
     on: '#f0f000',
