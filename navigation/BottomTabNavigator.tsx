@@ -5,6 +5,7 @@ import Colors from '../constants/Colors';
 import useColorScheme from '../hooks/useColorScheme';
 import TabOneScreen from '../screens/TabOneScreen';
 import TabTwoScreen from '../screens/TabTwoScreen';
+import TabThreeScreen from '../screens/TabThreeScreen';
 import { RootTabParamList, RootTabScreenProps } from '../types';
 import { ColorSchemeName, Pressable } from 'react-native';
 
@@ -22,13 +23,17 @@ export default function BottomTabNavigator() {
       initialRouteName="TabOne"
       screenOptions={{
         tabBarActiveTintColor: Colors[colorScheme].tint,
+        tabBarActiveBackgroundColor: "purple",
+        tabBarInactiveBackgroundColor: "purple"
       }}>
       <BottomTab.Screen
         name="TabOne"
-        component={TabOneScreen}
+        component={TabOneScreen} 
         options={({ navigation }: RootTabScreenProps<'TabOne'>) => ({
-          title: 'Tab One',
-          tabBarIcon: ({ color }) => <TabBarIcon name="code" color={color} />,
+          /* title: 'Hola', */
+          headerTitle: "App Name",
+          tabBarLabel : "",
+          tabBarIcon: ({ color }) => <TabBarIcon name="terminal" color="black" />,
           headerRight: () => (
             <Pressable
               onPress={() => navigation.navigate('Modal')}
@@ -49,8 +54,20 @@ export default function BottomTabNavigator() {
         name="TabTwo"
         component={TabTwoScreen}
         options={{
-          title: 'Tab Two',
-          tabBarIcon: ({ color }) => <TabBarIcon name="code" color={color} />,
+          /* title: '', */
+          tabBarLabel : "",
+          headerTitle: "App Name",
+          tabBarIcon: ({ color }) => <TabBarIcon name="home" color={color} />,
+        }}
+      />
+      <BottomTab.Screen
+        name="TabThree"
+        component={TabThreeScreen}
+        options={{
+          /* title: '', */
+          tabBarLabel : "",
+          headerTitle: "App Name",
+          tabBarIcon: ({ color }) => <TabBarIcon name="pie-chart" color={color} />,
         }}
       />
     </BottomTab.Navigator>
