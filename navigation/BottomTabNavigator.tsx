@@ -33,7 +33,7 @@ export default function BottomTabNavigator() {
           /* title: 'Hola', */
           headerTitle: "App Name",
           tabBarLabel : "",
-          tabBarIcon: ({ color }) => <TabBarIcon name="terminal" color="black" />,
+          tabBarIcon: ({ color }) => <TabBarIcon name="terminal" color={color} />,
           headerRight: () => (
             <Pressable
               onPress={() => navigation.navigate('Modal')}
