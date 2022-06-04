@@ -3,7 +3,7 @@
  * https://reactnavigation.org/docs/getting-started
  *
  */
-import { createDrawerNavigator } from '@react-navigation/drawer';
+// import { createDrawerNavigator } from '@react-navigation/drawer';
 import { NavigationContainer, DefaultTheme, DarkTheme } from '@react-navigation/native';
 import { createNativeStackNavigator } from '@react-navigation/native-stack';
 import * as React from 'react';
@@ -27,18 +27,18 @@ export default function Navigation({ colorScheme }: { colorScheme: ColorSchemeNa
   );
 }
 
-const Drawer = createDrawerNavigator();
+// const Drawer = createDrawerNavigator();
 
-function RootDrawerNavigation() {
-  return (
-    <Drawer.Navigator>
-      <Drawer.Screen
-        name='Home'
-        component={RootNavigator}
-      />
-    </Drawer.Navigator>
-  );
-}
+// function RootDrawerNavigation() {
+//   return (
+//     <Drawer.Navigator>
+//       <Drawer.Screen
+//         name='Home'
+//         component={RootNavigator}
+//       />
+//     </Drawer.Navigator>
+//   );
+// }
 
 /**
  * A root stack navigator is often used for displaying modals on top of all other content.
