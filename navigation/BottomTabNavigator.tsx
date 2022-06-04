@@ -25,6 +25,7 @@ export default function BottomTabNavigator() {
       initialRouteName="Home"
       screenOptions={{
         tabBarActiveTintColor: Colors[colorScheme].tint,
+        tabBarInactiveTintColor: Colors[colorScheme].tintInactive,
         tabBarActiveBackgroundColor: Colors.tabBar.active,
         tabBarInactiveBackgroundColor: Colors.tabBar.inactive,
       }}>
