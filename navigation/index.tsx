@@ -16,6 +16,7 @@ import LinkingConfiguration from './LinkingConfiguration';
 
 import BottomTabNavigator from './BottomTabNavigator';
 import SoundSettingsScreen from '../screens/settings/SoundSettingsScreen';
+import ControlScreen from '../screens/ControlScreen';
 
 export default function Navigation({ colorScheme }: { colorScheme: ColorSchemeName }) {
   return (
@@ -53,6 +54,7 @@ function RootNavigator() {
       <Stack.Screen name="Root" component={BottomTabNavigator} options={{ headerShown: false }} />
       <Stack.Screen name="NotFound" component={NotFoundScreen} options={{ title: 'Oops!' }} />
       <Stack.Screen name="Settings" component={SettingsScreen} />
+      <Stack.Screen name="Control" component={ControlScreen} />
       <Stack.Screen name="SoundSettings" component={SoundSettingsScreen} options={{headerTitle: 'Sound settings'}} />
     </Stack.Navigator>
   );
