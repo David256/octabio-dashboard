@@ -21,7 +21,6 @@ interface GraphProps {
   a: number[],
   b: number[],
   legend: string[],
-  historySize?: number,
   colors?: string[],
 };
 
@@ -30,7 +29,6 @@ const Graph = (props: GraphProps) => {
     a,
     b,
     legend,
-    historySize=14,
     colors=['yellow', 'green'],
   } = props;
   return (
@@ -38,8 +36,8 @@ const Graph = (props: GraphProps) => {
       data={{
         labels: ["7th", "6th", "5th", "4th", "3th", "2th", "1th"],
         datasets: [
-          { data: a.slice(-historySize), color: () => colors[0] },
-          { data: b.slice(-historySize), color: () => colors[1] },
+          { data: a, color: () => colors[0] },
+          { data: b, color: () => colors[1] },
         ],
         legend,
       }}
@@ -73,42 +71,46 @@ const Graph = (props: GraphProps) => {
 };
 
 export default function GraphScreen() {
+  const api = useAPI();
+
   const [historyLight, setHistoryLight] = useState<number[]>(initialHistory);
   const [historyCO, setHistoryCO] = useState<number[]>(initialHistory);
   const [historyDistance, setHistoryDistance] = useState<number[]>(initialHistory);
   const [historyPower, setHistoryPower] = useState<number[]>(initialHistory);
   const [historyHumidity, setHistoryHumidity] = useState<number[]>(initialHistory);
 
-  const api = useAPI();
+  const [aLight, setALight] = useState(Number.parseFloat(api.data.light as string));
+  const [aCO, setACO] = useState(Number.parseFloat(api.data.co as string));
+  const [aDistance, setADistance] = useState(Number.parseFloat(api.data.distance as string));
+  const [aPower, setAPower] = useState(Number.parseFloat(api.data.power as string));
+  const [aHumidity, setAHumidity] = useState(Number.parseFloat(api.data.humidity as string));
 
-  const [distance, setDistance] = useState(api.getApiValue('distance'));
-  const [co, setCo] = useState(api.getApiValue('co'));
-  const [power, setPower] = useState(api.getApiValue('power'));
-  const [light, setLight] = useState(api.getApiValue('light'));
-  const [humidity, setHumidity] = useState(api.getApiValue('humdity'));
 
-  // const updateValues = () => {
-  //   setDistance(api.getApiValue('distance'));
-  //   setCo(api.getApiValue('co'));
-  //   setPower(api.getApiValue('power'));
-  //   setLight(api.getApiValue('light'));
-  //   setHumidity(api.getApiValue('humidity'));
-  // };
+  const update = () => {
+    setHistoryLight((last) => [...last, aLight]);
+    setHistoryCO((last) => [...last, aCO]);
+    setHistoryDistance((last) => [...last, aDistance]);
+    setHistoryPower((last) => [...last, aPower]);
+    setHistoryHumidity((last) => [...last, aHumidity]);
 
-  useEffect(() => {
-    setInterval(() => {
-      setHistoryLight((last) => [...last, api.getApiValue('light') as number]);
-      setHistoryCO((last) => [...last, api.getApiValue('co') as number]);
-      setHistoryDistance((last) => [...last, api.getApiValue('distance') as number]);
-      setHistoryPower((last) => [...last, api.getApiValue('power') as number]);
-      setHistoryHumidity((last) => [...last, api.getApiValue('humidity') as number]);
-    }, 2000);
-  }, []);
+    // Check big list
+    if (historyLight.length > 7) historyLight.splice(0, 1);
+    if (historyCO.length > 7) historyCO.splice(0, 1);
+    if (historyDistance.length > 7) historyDistance.splice(0, 1);
+    if (historyPower.length > 7) historyPower.splice(0, 1);
+    if (historyHumidity.length > 7) historyHumidity.splice(0, 1);
+
+    setALight(Number.parseFloat(api.getApiValue('light') as string))
+    setACO(Number.parseFloat(api.getApiValue('co') as string))
+    setADistance(Number.parseFloat(api.getApiValue('distance') as string))
+    setAPower(Number.parseFloat(api.getApiValue('power') as string))
+    setAHumidity(Number.parseFloat(api.getApiValue('humidity') as string))
+
+    setTimeout(() => update(), 1000);
+  }
 
   // useEffect(() => {
-  //   setInterval(() => {
-  //     updateValues();      
-  //   }, 2000);
+  //   update();
   // }, []);
 
   return (
@@ -118,15 +120,15 @@ export default function GraphScreen() {
 
       <ScrollView style={styles.scrollable}>
         <Text>Distance vs CO</Text>
-        <Graph a={historyDistance} b={historyCO} legend={['distance', 'CO']} colors={['green', 'red']} />
+        <Graph a={historyDistance.slice(-14)} b={historyCO.slice(-14)} legend={['distance', 'CO']} colors={['green', 'red']} />
         <Separator />
 
         <Text>Power vs Light</Text>
-        <Graph a={historyPower} b={historyLight} legend={['power', 'light']} colors={['purple', 'yellow']} />
+        <Graph a={historyPower.slice(-14)} b={historyLight.slice(-14)} legend={['power', 'light']} colors={['purple', 'yellow']} />
         <Separator />
 
         <Text>Humidity vs CO</Text>
-        <Graph a={historyHumidity} b={historyCO} legend={['Humedad', 'CO']} colors={['blue', 'red']} />
+        <Graph a={historyHumidity.slice(-14)} b={historyCO.slice(-14)} legend={['Humedad', 'CO']} colors={['blue', 'red']} />
         <Separator />
       </ScrollView>
     </View>

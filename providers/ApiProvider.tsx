@@ -47,12 +47,17 @@ export const ApiContext = React.createContext<ValueType>({} as ValueType);
 export function ApiProvider(props: ApiProviderProps) {
   const [sensorData, setSensorData] = useState<SensorDataType>({});
 
+  const update = () => {
+    setSensorData(testData());
+
+    setTimeout(() => update(), 1000);
+  }
+
+  useEffect(() => {
+    update();
+  }, []);
+
   const getApiValue: GetApiValueType = (varname) => {
-    if (enableVariables.includes(varname)) {
-      const data = testData();
-      return data[varname as keyof typeof data];
-    }
-    // TODO: get data from Bluetooth.
     return sensorData[varname] || 0;
   }
 
