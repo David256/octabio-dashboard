@@ -19,5 +19,9 @@ export default {
   led: {
     on: '#f0f000',
     off: '#000',
+  },
+  tabBar: {
+    active: '#8226C9',
+    inactive: '#601C94',
   }
 };
