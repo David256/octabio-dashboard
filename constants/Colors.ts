@@ -1,5 +1,8 @@
 export const colorPrimary = '#381EC5';
 
+export const colorGray = '#d6d6d6';
+export const colorGreen = '#81FA6D';
+
 const tintColorLight = colorPrimary;
 const tintColorDark = '#fff';
 
