@@ -2,6 +2,7 @@ import { StatusBar } from 'expo-status-bar';
 import { Platform, StyleSheet } from 'react-native';
 
 import { Text, View } from '../../components/Themed';
+import Separator from '../../components/Separator';
 
 import Checkbox from '../../components/Checkbok';
 
@@ -9,7 +10,7 @@ export default function SoundSettingsScreen() {
   return (
     <View style={styles.container}>
       <Text style={styles.title}>Reproduce un sonido cuando el sensor reciba datos</Text>
-      <View style={styles.separator} lightColor="#eee" darkColor="rgba(255,255,255,0.1)" />
+      <Separator />
 
       <Checkbox>Sensor de distancia cercana</Checkbox>
       <Checkbox>Sensor de movimiento</Checkbox>
@@ -32,10 +33,5 @@ const styles = StyleSheet.create({
   title: {
     fontSize: 18,
     fontWeight: '500',
-  },
-  separator: {
-    marginVertical: 30,
-    height: 1,
-    width: '100%',
   },
 });
