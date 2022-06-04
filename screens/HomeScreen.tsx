@@ -18,7 +18,12 @@ const actions: IActionProps[] = [
     name: 'control',
     text: 'Control',
     icon: <FontAwesome name='gamepad' style={{ marginBottom: 4 }} size={24} color={'#fff'}/>
-  }
+  },
+  {
+    name: 'settings',
+    text: 'Settings',
+    icon: <FontAwesome name='gears' style={{ marginBottom: 4 }} size={24} color={'#fff'}/>
+  },
 ];
 
 export interface HomeScreenProps {
@@ -38,6 +43,8 @@ export default function HomeScreen(props: HomeScreenProps) {
 
   const onFloatingPressItem = (name?: string | undefined) => {
     if (name === 'control') {
+      navigation.navigate('Control')
+    } else if (name === 'settings') {
       navigation.navigate('Settings')
     }
   };
