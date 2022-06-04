@@ -13,6 +13,9 @@ export interface GlobalSettingSType {
   onLight?: boolean,
 
   enableLog?: boolean,
+
+  led1?: boolean,
+  led2?: boolean,
 };
 
 export interface ValueType {
