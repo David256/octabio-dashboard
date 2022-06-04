@@ -1,9 +1,20 @@
 import * as React from 'react';
 import { useState } from 'react';
 
-export type OnApiChangeCallbackType = (value: string) => void;
+const testData = {
+  distance: 0.2,
+  co: 0.9,
+  power: 0.1,
+  light: 0.4,
+  humidity: 0.7,
+  pulse: 1,
+}
 
-export type OnApiChangeType = (varname: string, callback: OnApiChangeCallbackType) => void;
+export interface SensorDataType {
+  [key: string]: string | number;
+};
+
+export type GetApiValueType = (varname: string) => string | number;
 
 export type SendApiValueType = (varname: string, value: string) => void;
 
@@ -12,24 +23,32 @@ export interface ApiProviderProps {
 };
 
 export interface ValueType {
-  onApiChange: OnApiChangeType,
+  getApiValue: GetApiValueType,
   sendApiValue: SendApiValueType,
 };
 
 export const ApiContext = React.createContext<ValueType>({} as ValueType);
 
 export function ApiProvider(props: ApiProviderProps) {
-  const onApiChange: OnApiChangeType = (varname, callback) => {
-    if (varname === '') return;
-    callback(varname); // TODO: edit that
-  };
+  const [sensorData, setSensorData] = useState<SensorDataType>({});
+
+  const getApiValue: GetApiValueType = (varname) => {
+    let value: number | string = 0
+    if (Object.keys(testData).includes(varname)) {
+      value = testData[varname as keyof typeof testData];
+    } else {
+      value = sensorData[varname] || 0;
+    }
+    return value || 0;
+  }
 
   const sendApiValue: SendApiValueType = (varname, value) => {
     // TODO: send this value
+    console.log(`sending ${varname} = "${value}"`);
   }
 
   const value: ValueType = {
-    onApiChange,
+    getApiValue,
     sendApiValue,
   };
 
