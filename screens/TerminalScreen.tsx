@@ -1,14 +1,22 @@
+import * as React from 'react';
+import { useState } from 'react';
+
 import { StyleSheet } from 'react-native';
 
 import { RootTabScreenProps } from '../types';
-import {View} from 'react-native';
+import { View, TextInput } from 'react-native';
 
 export default function TerminalScreen({ navigation }: RootTabScreenProps<'Terminal'>) {
+  const [text, setText] = useState('');
+  const [lines, setLines] = useState<string[]>([]);
+
   return (
-    <View style={[styles.container, {
-      flexDirection:"column"
-      }]}
-    >    
+    <View style={styles.container}>
+      <TextInput
+        style={styles.input}
+        placeholder={'Escribe cualquier weá'}
+        autoFocus
+      />
     </View>
   );
 }
@@ -16,17 +24,13 @@ export default function TerminalScreen({ navigation }: RootTabScreenProps<'Termi
 const styles = StyleSheet.create({
   container: {
     flex: 1,
-    padding:2
-    /* alignItems: 'center',
-    justifyContent: 'center', */
+    padding: 5
   },
-  title: {
-    fontSize: 20,
-    fontWeight: 'bold',
-  },
-  /* separator: {
-    marginVertical: 30,
-    height: 1,
-    width: '80%',
-  }, */
+  input: {
+    borderColor: '#000',
+    borderWidth: 1,
+    borderStyle: 'solid',
+    height: 40,
+    padding: 10,
+  }
 });
