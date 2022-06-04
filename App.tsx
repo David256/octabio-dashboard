@@ -8,6 +8,7 @@ import Navigation from './navigation';
 
 import { LedControlProvider } from './providers/LedControlProvider';
 import { ApiProvider } from './providers/ApiProvider';
+import { GlobalSettingSProvider } from './providers/GlobalSettingSProvider';
 
 export default function App() {
   const isLoadingComplete = useCachedResources();
@@ -17,14 +18,16 @@ export default function App() {
     return null;
   } else {
     return (
-      <ApiProvider>
-        <LedControlProvider>
-          <SafeAreaProvider>
-            <Navigation colorScheme={colorScheme} />
-            <StatusBar />
-          </SafeAreaProvider>
-        </LedControlProvider>
-      </ApiProvider>
+      <GlobalSettingSProvider>
+        <ApiProvider>
+          <LedControlProvider>
+            <SafeAreaProvider>
+              <Navigation colorScheme={colorScheme} />
+              <StatusBar />
+            </SafeAreaProvider>
+          </LedControlProvider>
+        </ApiProvider>
+      </GlobalSettingSProvider>
     );
   }
 }
