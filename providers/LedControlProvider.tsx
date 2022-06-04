@@ -27,6 +27,7 @@ export function LedControlProvider(props: LedControlProviderProps) {
 
   const updateLed: updateLedType = (id, state) => {
     setLeds((last) => ({...last, [id]: state}));
+    // TODO: send led status using Bluetooth.
   };
 
   const value: ValueType = {
