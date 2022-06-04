@@ -1,5 +1,5 @@
 import * as React from 'react';
-import { useState } from 'react';
+import { useEffect, useState } from 'react';
 
 import { NativeSyntheticEvent, ScrollView, StyleSheet, Text, TextInputSubmitEditingEventData } from 'react-native';
 
@@ -10,20 +10,42 @@ import useColorScheme from '../hooks/useColorScheme';
 
 import Checkbox from '../components/Checkbok';
 import useGlobalSettings from '../hooks/useGlobalSettings';
+import useAPI from '../hooks/useAPI';
 
 export default function TerminalScreen({ navigation }: RootTabScreenProps<'Terminal'>) {
   const colorScheme = useColorScheme();
+  const api = useAPI();
 
   const {globalSettings, updateGlobalSettings} = useGlobalSettings();
 
+  const [incommingText, setIncommingText] = useState<string | null>(null);
   const [enableReceiveLog, setEnableReceiveLog] = useState(false);
   const [text, setText] = useState('');
   const [lines, setLines] = useState<string[]>([]);
+
+  const updateValues = () => {
+    setIncommingText(api.getApiValue('log') as string);
+  };
+
+  useEffect(() => {
+    if (enableReceiveLog && incommingText) {
+      setLines((last) => [...last, ...incommingText.split('\n')]);
+      setIncommingText(null);
+    }
+  }, [incommingText, enableReceiveLog]);
+
+  useEffect(() => {
+    setInterval(() => {
+      updateValues();      
+    }, 1000);
+  }, []);
 
   const onSubmit = (e: NativeSyntheticEvent<TextInputSubmitEditingEventData>) => {
     const sentText: string = e.nativeEvent.text;
     setLines((last) => [...last, sentText]);
     setText('');
+
+    // TODO: send sentText using useAPI
   }
   
   const onCheck = (isChecked: boolean) => {
