@@ -9,6 +9,8 @@ import TabThreeScreen from '../screens/TabThreeScreen';
 import { RootTabParamList, RootTabScreenProps } from '../types';
 import { ColorSchemeName, Pressable } from 'react-native';
 
+import LedControl from '../components/LedControl';
+
 /**
  * A bottom tab navigator displays tab buttons on the bottom of the display to switch screens.
  * https://reactnavigation.org/docs/bottom-tab-navigator
@@ -35,18 +37,7 @@ export default function BottomTabNavigator() {
           tabBarLabel : "",
           tabBarIcon: ({ color }) => <TabBarIcon name="terminal" color={color} />,
           headerRight: () => (
-            <Pressable
-              onPress={() => navigation.navigate('Modal')}
-              style={({ pressed }) => ({
-                opacity: pressed ? 0.5 : 1,
-              })}>
-              <FontAwesome
-                name="info-circle"
-                size={25}
-                color={Colors[colorScheme].text}
-                style={{ marginRight: 15 }}
-              />
-            </Pressable>
+            <LedControl id={0} />
           ),
         })}
       />
