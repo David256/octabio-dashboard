@@ -5,6 +5,7 @@
  */
 import { FontAwesome } from '@expo/vector-icons';
 import { createBottomTabNavigator } from '@react-navigation/bottom-tabs';
+import { createDrawerNavigator } from '@react-navigation/drawer';
 import { NavigationContainer, DefaultTheme, DarkTheme } from '@react-navigation/native';
 import { createNativeStackNavigator } from '@react-navigation/native-stack';
 import * as React from 'react';
@@ -25,7 +26,21 @@ export default function Navigation({ colorScheme }: { colorScheme: ColorSchemeNa
       linking={LinkingConfiguration}
       theme={colorScheme === 'dark' ? DarkTheme : DefaultTheme}>
       <RootNavigator />
+      {/* <RootDrawerNavigation /> */}
     </NavigationContainer>
+  );
+}
+
+const Drawer = createDrawerNavigator();
+
+function RootDrawerNavigation() {
+  return (
+    <Drawer.Navigator>
+      <Drawer.Screen
+        name='Home'
+        component={RootNavigator}
+      />
+    </Drawer.Navigator>
   );
 }
 
