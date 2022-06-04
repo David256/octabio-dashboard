@@ -8,6 +8,7 @@ const enableVariables = [
   'light',
   'humidity',
   'pulse',
+  'log',
 ]
 
 const testData = () => {
@@ -18,6 +19,8 @@ const testData = () => {
     light: Math.random(),
     humidity: Math.random(),
     pulse: Math.floor(Math.random()),
+
+    log: 'input\n5434565',
   };
 }
 
@@ -48,11 +51,12 @@ export function ApiProvider(props: ApiProviderProps) {
       const data = testData();
       return data[varname as keyof typeof data];
     }
+    // TODO: get data from Bluetooth.
     return sensorData[varname] || 0;
   }
 
   const sendApiValue: SendApiValueType = (varname, value) => {
-    // TODO: send this value
+    // TODO: send this value using Bluetooth
     console.log(`sending ${varname} = "${value}"`);
   }
 
