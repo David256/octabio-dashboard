@@ -12,6 +12,7 @@ import useAPI from '../hooks/useAPI';
 import { FontAwesome } from '@expo/vector-icons';
 import { NativeStackNavigationProp } from '@react-navigation/native-stack';
 import { RootStackParamList } from '../types';
+import { useEffect, useState } from 'react';
 
 const actions: IActionProps[] = [
   {
@@ -35,11 +36,26 @@ export default function HomeScreen(props: HomeScreenProps) {
 
   const api = useAPI();
 
-  const distance = api.getApiValue('distance');
-  const co = api.getApiValue('co');
-  const power = api.getApiValue('power');
-  const light = api.getApiValue('light');
-  const humidity = api.getApiValue('humidity');
+  const [distance, setDistance] = useState(api.getApiValue('distance'));
+  const [co, setCo] = useState(api.getApiValue('co'));
+  const [power, setPower] = useState(api.getApiValue('power'));
+  const [light, setLight] = useState(api.getApiValue('light'));
+  const [humidity, setHumidity] = useState(api.getApiValue('humdity'));
+
+  const updateValues = () => {
+    setDistance(api.getApiValue('distance'));
+    setCo(api.getApiValue('co'));
+    setPower(api.getApiValue('power'));
+    setLight(api.getApiValue('light'));
+    setHumidity(api.getApiValue('humidity'));
+  };
+
+
+  useEffect(() => {
+    setInterval(() => {
+      updateValues();      
+    }, 1000);
+  }, []);
 
   const onFloatingPressItem = (name?: string | undefined) => {
     if (name === 'control') {

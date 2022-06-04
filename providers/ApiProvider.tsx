@@ -2,12 +2,12 @@ import * as React from 'react';
 import { useState } from 'react';
 
 const testData = {
-  distance: 0.2,
-  co: 0.9,
-  power: 0.1,
-  light: 0.4,
-  humidity: 0.7,
-  pulse: 1,
+  distance: Math.random(),
+  co: Math.random(),
+  power: Math.random(),
+  light: Math.random(),
+  humidity: Math.random(),
+  pulse: Math.floor(Math.random()),
 }
 
 export interface SensorDataType {
