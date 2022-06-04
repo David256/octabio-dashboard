@@ -7,11 +7,13 @@ import { RootTabScreenProps } from '../types';
 import { View, TextInput } from 'react-native';
 
 export default function TerminalScreen({ navigation }: RootTabScreenProps<'Terminal'>) {
+  const [text, setText] = useState('');
   const [lines, setLines] = useState<string[]>([]);
 
   const onSubmit = (e: NativeSyntheticEvent<TextInputSubmitEditingEventData>) => {
-    const text: string = e.nativeEvent.text;
-    setLines((last) => [...last, text]);
+    const sentText: string = e.nativeEvent.text;
+    setLines((last) => [...last, sentText]);
+    setText('');
   }
 
   return (
@@ -23,6 +25,8 @@ export default function TerminalScreen({ navigation }: RootTabScreenProps<'Termi
       </ScrollView>
       <TextInput
         autoFocus
+        value={text}
+        onChangeText={setText}
         style={styles.input}
         onSubmitEditing={onSubmit}
         placeholder={'Escribe cualquier weá'}
