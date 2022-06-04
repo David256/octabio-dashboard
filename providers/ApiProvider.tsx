@@ -1,7 +1,7 @@
 import * as React from 'react';
 import { useState } from 'react';
 
-const enableTest = [
+const enableVariables = [
   'distance',
   'co',
   'power',
@@ -44,7 +44,7 @@ export function ApiProvider(props: ApiProviderProps) {
   const [sensorData, setSensorData] = useState<SensorDataType>({});
 
   const getApiValue: GetApiValueType = (varname) => {
-    if (enableTest.includes(varname)) {
+    if (enableVariables.includes(varname)) {
       const data = testData();
       return data[varname as keyof typeof data];
     }
