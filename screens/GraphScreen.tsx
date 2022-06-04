@@ -87,27 +87,29 @@ export default function GraphScreen() {
   const [light, setLight] = useState(api.getApiValue('light'));
   const [humidity, setHumidity] = useState(api.getApiValue('humdity'));
 
-  const updateValues = () => {
-    setDistance(api.getApiValue('distance'));
-    setCo(api.getApiValue('co'));
-    setPower(api.getApiValue('power'));
-    setLight(api.getApiValue('light'));
-    setHumidity(api.getApiValue('humidity'));
-  };
-
-  useEffect(() => {
-    setHistoryLight((last) => [...last, light as number]);
-    setHistoryCO((last) => [...last, co as number]);
-    setHistoryDistance((last) => [...last, distance as number]);
-    setHistoryPower((last) => [...last, power as number]);
-    setHistoryHumidity((last) => [...last, humidity as number]);
-  }, [light]);
+  // const updateValues = () => {
+  //   setDistance(api.getApiValue('distance'));
+  //   setCo(api.getApiValue('co'));
+  //   setPower(api.getApiValue('power'));
+  //   setLight(api.getApiValue('light'));
+  //   setHumidity(api.getApiValue('humidity'));
+  // };
 
   useEffect(() => {
     setInterval(() => {
-      updateValues();      
-    }, 1000);
+      setHistoryLight((last) => [...last, api.getApiValue('light') as number]);
+      setHistoryCO((last) => [...last, api.getApiValue('co') as number]);
+      setHistoryDistance((last) => [...last, api.getApiValue('distance') as number]);
+      setHistoryPower((last) => [...last, api.getApiValue('power') as number]);
+      setHistoryHumidity((last) => [...last, api.getApiValue('humidity') as number]);
+    }, 2000);
   }, []);
+
+  // useEffect(() => {
+  //   setInterval(() => {
+  //     updateValues();      
+  //   }, 2000);
+  // }, []);
 
   return (
     <View style={styles.container}>
@@ -120,7 +122,7 @@ export default function GraphScreen() {
         <Separator />
 
         <Text>Power vs Light</Text>
-        <Graph a={historyPower} b={historyLight} legend={['power', 'light']} colors={['orange', 'yellow']} />
+        <Graph a={historyPower} b={historyLight} legend={['power', 'light']} colors={['purple', 'yellow']} />
         <Separator />
 
         <Text>Humidity vs CO</Text>

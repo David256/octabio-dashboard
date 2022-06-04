@@ -1,5 +1,5 @@
 import * as React from 'react';
-import { useState } from 'react';
+import { useEffect, useState } from 'react';
 
 const enableVariables = [
   'distance',
@@ -37,6 +37,7 @@ export interface ApiProviderProps {
 };
 
 export interface ValueType {
+  data: SensorDataType,
   getApiValue: GetApiValueType,
   sendApiValue: SendApiValueType,
 };
@@ -63,6 +64,7 @@ export function ApiProvider(props: ApiProviderProps) {
   const value: ValueType = {
     getApiValue,
     sendApiValue,
+    data: sensorData,
   };
 
   return (
