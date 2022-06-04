@@ -1,21 +1,26 @@
 import * as React from 'react';
 import { useState } from 'react';
 
-import { StyleSheet } from 'react-native';
+import { NativeSyntheticEvent, StyleSheet, TextInputSubmitEditingEventData } from 'react-native';
 
 import { RootTabScreenProps } from '../types';
 import { View, TextInput } from 'react-native';
 
 export default function TerminalScreen({ navigation }: RootTabScreenProps<'Terminal'>) {
-  const [text, setText] = useState('');
   const [lines, setLines] = useState<string[]>([]);
+
+  const onSubmit = (e: NativeSyntheticEvent<TextInputSubmitEditingEventData>) => {
+    const text: string = e.nativeEvent.text;
+    setLines((last) => [...last, text]);
+  }
 
   return (
     <View style={styles.container}>
       <TextInput
-        style={styles.input}
-        placeholder={'Escribe cualquier weá'}
         autoFocus
+        style={styles.input}
+        onSubmitEditing={onSubmit}
+        placeholder={'Escribe cualquier weá'}
       />
     </View>
   );
