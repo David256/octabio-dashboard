@@ -1,13 +1,24 @@
 import * as React from 'react';
 import { useState } from 'react';
 
-const testData = {
-  distance: Math.random(),
-  co: Math.random(),
-  power: Math.random(),
-  light: Math.random(),
-  humidity: Math.random(),
-  pulse: Math.floor(Math.random()),
+const enableTest = [
+  'distance',
+  'co',
+  'power',
+  'light',
+  'humidity',
+  'pulse',
+]
+
+const testData = () => {
+  return {
+    distance: Math.random(),
+    co: Math.random(),
+    power: Math.random(),
+    light: Math.random(),
+    humidity: Math.random(),
+    pulse: Math.floor(Math.random()),
+  };
 }
 
 export interface SensorDataType {
@@ -33,13 +44,11 @@ export function ApiProvider(props: ApiProviderProps) {
   const [sensorData, setSensorData] = useState<SensorDataType>({});
 
   const getApiValue: GetApiValueType = (varname) => {
-    let value: number | string = 0
-    if (Object.keys(testData).includes(varname)) {
-      value = testData[varname as keyof typeof testData];
-    } else {
-      value = sensorData[varname] || 0;
+    if (enableTest.includes(varname)) {
+      const data = testData();
+      return data[varname as keyof typeof data];
     }
-    return value || 0;
+    return sensorData[varname] || 0;
   }
 
   const sendApiValue: SendApiValueType = (varname, value) => {
