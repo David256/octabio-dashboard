@@ -5,11 +5,7 @@ import SensorStats from '../components/SensorStats';
 
 export default function HomeScreen() {
   return (
-    <View style={[styles.container, {
-        // Try setting `flexDirection` to `"row"`.
-        flexDirection: "column"
-      }]}
-    >
+    <View style={styles.container}>
       <SensorStats title="Monóxido de carbono:" percentage={0.1}/>
       <SensorStats title="Humedad:" percentage={0.9}/>
       <SensorStats title="Intensidad luminosa::" percentage={0.9}/>
@@ -22,17 +18,6 @@ export default function HomeScreen() {
 const styles = StyleSheet.create({
   container: {
     flex: 1,
-    padding: 3,
-    /* alignItems: 'center',
-    justifyContent: 'center', */
-  },
-  title: {
-    fontSize: 20,
-    fontWeight: 'bold',
-  },
-  separator: {
-    marginVertical: 30,
-    height: 1,
-    width: '80%',
+    padding: 5,
   },
 });
