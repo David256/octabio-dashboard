@@ -18,7 +18,10 @@ export default function TerminalScreen({ navigation }: RootTabScreenProps<'Termi
 
   return (
     <View style={styles.container}>
-      <ScrollView style={styles.scrollable}>
+      <ScrollView
+        style={styles.scrollable}
+        showsVerticalScrollIndicator
+      >
         <Text style={styles.text}>
           {lines.map((line) => `${line}\n`)}
         </Text>
