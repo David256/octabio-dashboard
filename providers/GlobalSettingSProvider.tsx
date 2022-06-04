@@ -5,14 +5,20 @@ export interface GlobalSettingSProviderProps {
   children: React.ReactNode,
 };
 
-export interface GlobalSettingSType {};
+export interface GlobalSettingSType {
+  onDistance?: boolean,
+  onMoving?: boolean,
+  onCO?: boolean,
+  onPower?: boolean,
+  onLight?: boolean,
+};
 
 export interface ValueType {
   globalSettings: GlobalSettingSType,
   updateGlobalSettings: updateGlobalSettingsType,
 };
 
-export type updateGlobalSettingsType = (varname: string, value: number | string) => void;
+export type updateGlobalSettingsType = (varname: string, value: number | string | boolean) => void;
 
 export const GlobalSettingSContext = React.createContext<ValueType>({} as ValueType);
 
