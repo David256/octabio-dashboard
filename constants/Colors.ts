@@ -16,4 +16,8 @@ export default {
     tabIconDefault: '#ccc',
     tabIconSelected: tintColorDark,
   },
+  led: {
+    on: '#f0f000',
+    off: '#000',
+  }
 };
