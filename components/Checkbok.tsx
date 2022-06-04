@@ -41,6 +41,7 @@ export default function Checkbox(props: CheckboxProps) {
 const styles = StyleSheet.create({
   container: {
     height: 32,
+    marginBottom: 5,
   },
   checkboxContainer: {
     flex: 1,
