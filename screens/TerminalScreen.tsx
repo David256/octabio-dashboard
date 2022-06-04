@@ -1,7 +1,7 @@
 import * as React from 'react';
 import { useState } from 'react';
 
-import { NativeSyntheticEvent, StyleSheet, TextInputSubmitEditingEventData } from 'react-native';
+import { NativeSyntheticEvent, ScrollView, StyleSheet, Text, TextInputSubmitEditingEventData } from 'react-native';
 
 import { RootTabScreenProps } from '../types';
 import { View, TextInput } from 'react-native';
@@ -16,6 +16,11 @@ export default function TerminalScreen({ navigation }: RootTabScreenProps<'Termi
 
   return (
     <View style={styles.container}>
+      <ScrollView style={styles.scrollable}>
+        <Text style={styles.text}>
+          {lines.map((line) => `${line}\n`)}
+        </Text>
+      </ScrollView>
       <TextInput
         autoFocus
         style={styles.input}
@@ -37,5 +42,14 @@ const styles = StyleSheet.create({
     borderStyle: 'solid',
     height: 40,
     padding: 10,
+  },
+  scrollable: {
+    backgroundColor: '#212121',
+    padding: 5,
+  },
+  text: {
+    flex: 1,
+    color: '#fff',
+    fontSize: 20,
   }
 });
