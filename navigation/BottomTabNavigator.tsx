@@ -8,7 +8,7 @@ import HomeScreen from '../screens/HomeScreen';
 import GraphScreen from '../screens/GraphScreen';
 import { RootTabParamList, RootTabScreenProps } from '../types';
 
-import LedControl from '../components/LedControl';
+import LedControls from '../components/LedControls';
 
 /**
  * A bottom tab navigator displays tab buttons on the bottom of the display to switch screens.
@@ -35,9 +35,7 @@ export default function BottomTabNavigator() {
           headerTitle: "App Name - Terminal",
           tabBarLabel : "",
           tabBarIcon: ({ color }) => <TabBarIcon name="terminal" color={color} />,
-          headerRight: () => (
-            <LedControl id={0} />
-          ),
+          headerRight: () => <LedControls />,
         })}
       />
       <BottomTab.Screen
@@ -48,6 +46,7 @@ export default function BottomTabNavigator() {
           tabBarLabel : "",
           headerTitle: "App Name",
           tabBarIcon: ({ color }) => <TabBarIcon name="home" color={color} />,
+          headerRight: () => <LedControls />,
         }}
       />
       <BottomTab.Screen
@@ -58,6 +57,7 @@ export default function BottomTabNavigator() {
           tabBarLabel : "",
           headerTitle: "App Name - Graph",
           tabBarIcon: ({ color }) => <TabBarIcon name="pie-chart" color={color} />,
+          headerRight: () => <LedControls />,
         }}
       />
     </BottomTab.Navigator>
