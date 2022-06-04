@@ -11,6 +11,8 @@ export interface GlobalSettingSType {
   onCO?: boolean,
   onPower?: boolean,
   onLight?: boolean,
+
+  enableLog?: boolean,
 };
 
 export interface ValueType {

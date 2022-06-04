@@ -9,9 +9,12 @@ import Colors from '../constants/Colors';
 import useColorScheme from '../hooks/useColorScheme';
 
 import Checkbox from '../components/Checkbok';
+import useGlobalSettings from '../hooks/useGlobalSettings';
 
 export default function TerminalScreen({ navigation }: RootTabScreenProps<'Terminal'>) {
   const colorScheme = useColorScheme();
+
+  const {globalSettings, updateGlobalSettings} = useGlobalSettings();
 
   const [enableReceiveLog, setEnableReceiveLog] = useState(false);
   const [text, setText] = useState('');
@@ -22,11 +25,17 @@ export default function TerminalScreen({ navigation }: RootTabScreenProps<'Termi
     setLines((last) => [...last, sentText]);
     setText('');
   }
+  
+  const onCheck = (isChecked: boolean) => {
+    setEnableReceiveLog(isChecked);
+    updateGlobalSettings('enableLog', isChecked);
+  }
 
   return (
     <View style={styles.container}>
       <Checkbox
-        onCheck={setEnableReceiveLog}
+        value={globalSettings.enableLog}
+        onCheck={onCheck}
       >
         Recibir mensajes
       </Checkbox>
