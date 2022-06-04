@@ -3,11 +3,10 @@ import { createBottomTabNavigator } from '@react-navigation/bottom-tabs';
 
 import Colors from '../constants/Colors';
 import useColorScheme from '../hooks/useColorScheme';
-import TabOneScreen from '../screens/TabOneScreen';
-import TabTwoScreen from '../screens/TabTwoScreen';
-import TabThreeScreen from '../screens/TabThreeScreen';
+import TerminalScreen from '../screens/TerminalScreen';
+import HomeScreen from '../screens/HomeScreen';
+import GraphScreen from '../screens/GraphScreen';
 import { RootTabParamList, RootTabScreenProps } from '../types';
-import { ColorSchemeName, Pressable } from 'react-native';
 
 import LedControl from '../components/LedControl';
 
@@ -22,18 +21,18 @@ export default function BottomTabNavigator() {
 
   return (
     <BottomTab.Navigator
-      initialRouteName="TabOne"
+      initialRouteName="Home"
       screenOptions={{
         tabBarActiveTintColor: Colors[colorScheme].tint,
         tabBarActiveBackgroundColor: "purple",
         tabBarInactiveBackgroundColor: "purple"
       }}>
       <BottomTab.Screen
-        name="TabOne"
-        component={TabOneScreen} 
-        options={({ navigation }: RootTabScreenProps<'TabOne'>) => ({
+        name="Terminal"
+        component={TerminalScreen} 
+        options={({ navigation }: RootTabScreenProps<'Terminal'>) => ({
           /* title: 'Hola', */
-          headerTitle: "App Name",
+          headerTitle: "App Name - Terminal",
           tabBarLabel : "",
           tabBarIcon: ({ color }) => <TabBarIcon name="terminal" color={color} />,
           headerRight: () => (
@@ -42,8 +41,8 @@ export default function BottomTabNavigator() {
         })}
       />
       <BottomTab.Screen
-        name="TabTwo"
-        component={TabTwoScreen}
+        name="Home"
+        component={HomeScreen}
         options={{
           /* title: '', */
           tabBarLabel : "",
@@ -52,12 +51,12 @@ export default function BottomTabNavigator() {
         }}
       />
       <BottomTab.Screen
-        name="TabThree"
-        component={TabThreeScreen}
+        name="Graph"
+        component={GraphScreen}
         options={{
           /* title: '', */
           tabBarLabel : "",
-          headerTitle: "App Name",
+          headerTitle: "App Name - Graph",
           tabBarIcon: ({ color }) => <TabBarIcon name="pie-chart" color={color} />,
         }}
       />

@@ -1,10 +1,9 @@
 import { StyleSheet } from 'react-native';
 
-import EditScreenInfo from '../components/EditScreenInfo';
-import { Text, View } from '../components/Themed';
+import { View } from '../components/Themed';
 import SensorStats from '../components/SensorStats';
 
-export default function TabTwoScreen() {
+export default function HomeScreen() {
   return (
     <View style={[styles.container, {
       // Try setting `flexDirection` to `"row"`.
@@ -12,7 +11,7 @@ export default function TabTwoScreen() {
     }]}>
       {/* <Text style={styles.title}>Tab Two</Text>
       <View style={styles.separator} lightColor="#eee" darkColor="rgba(255,255,255,0.1)" />
-      <EditScreenInfo path="/screens/TabTwoScreen.tsx" /> */}
+      <EditScreenInfo path="/screens/HomeScreen.tsx" /> */}
       <SensorStats title="Monóxido de carbono:" percentage={0.1}/>
       <SensorStats title="Humedad:" percentage={0.9}/>
       <SensorStats title="Intensidad luminosa::" percentage={0.9}/>

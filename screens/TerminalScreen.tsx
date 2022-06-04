@@ -6,14 +6,14 @@ import { RootTabScreenProps } from '../types';
 import SensorStats from '../components/SensorStats';
 import {View} from 'react-native';
 
-export default function TabOneScreen({ navigation }: RootTabScreenProps<'TabOne'>) {
+export default function TerminalScreen({ navigation }: RootTabScreenProps<'Terminal'>) {
   return (
     <View style={[styles.container, {
       flexDirection:"column"
       }]}>
       {/* <Text style={styles.title}>App Name</Text> */}
       {/* <View style={styles.separator} lightColor="#eee" darkColor="rgba(255,255,255,0.1)" />
-      <EditScreenInfo path="/screens/TabOneScreen.tsx" /> */}
+      <EditScreenInfo path="/screens/TerminalScreen.tsx" /> */}
       
     </View>
   );
