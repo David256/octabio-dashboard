@@ -112,7 +112,7 @@ export function ApiProvider(props: ApiProviderProps) {
 
       fetch(
         `http://${endpoint.host}:${endpoint.port}${endpoint.path}/mobil/data`,
-        { method: 'POST', body: JSON.stringify([{motor, estado}])}
+        { method: 'POST', body: JSON.stringify([{tipo: 'motor', nombre: motor, estado}]) }
       );
     } else if (varname === 'led1' || varname === 'led2') {
       if (varname === 'led1') {
@@ -124,7 +124,7 @@ export function ApiProvider(props: ApiProviderProps) {
 
       fetch(
         `http://${endpoint.host}:${endpoint.port}${endpoint.path}/mobil/data`,
-        { method: 'POST', body: JSON.stringify([{led, estado}])}
+        { method: 'POST', body: JSON.stringify([{tipo: 'led', nombre: led, estado}]) }
       );
     }
   }
