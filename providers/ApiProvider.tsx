@@ -1,5 +1,6 @@
 import * as React from 'react';
 import { useEffect, useState } from 'react';
+import endpoint from '../endpoint';
 import useSimulation, { useKaoticSimulation, useSmartSimulation } from '../hooks/useSimulation';
 
 const smartSimulation = useSmartSimulation();
@@ -58,7 +59,35 @@ export function ApiProvider(props: ApiProviderProps) {
   }
 
   useEffect(() => {
-    update();
+    // update();
+    setInterval(async () => {
+      try {
+        const response = await fetch(`http://${endpoint.host}:${endpoint.port}${endpoint.path}`, { method: 'GET'});
+        const json = await response.json();
+        console.log(json);
+
+        (json as any[]).forEach((item) => {
+          console.log('name', item.nombre);
+          if (item.nombre === 'pot') {
+            const value = ((item.data as number) / 1023);
+            console.log(value);
+            if (value !== sensorData.power) {
+              setSensorData({...sensorData, power: value});
+              console.log('updated');
+            }
+          } else if (item.nombre === 'fot') {
+            const value = ((item.data as number) / 1023);
+            console.log(value);
+            if (value !== sensorData.light) {
+              setSensorData({...sensorData, light: value});
+              console.log('updated');
+            }
+          }
+        });
+      } catch (err) {
+        console.error(err);
+      }
+    }, 3000);
   }, []);
 
   const getApiValue: GetApiValueType = (varname) => {
