@@ -1,6 +1,7 @@
 import * as React from 'react';
 import { useState, useEffect } from 'react';
-import { Pressable, View, Text, StyleSheet } from 'react-native';
+import { Pressable, View, StyleSheet } from 'react-native';
+import { Text } from './Themed';
 
 export interface CheckboxProps {
   children?: React.ReactNode,
