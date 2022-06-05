@@ -18,6 +18,10 @@ export default {
     tabIconDefault: '#ccc',
     tabIconSelected: tintColorLight,
     textInput: '#000',
+    led: {
+      on: '#f0f000',
+      off: '#000',
+    },
   },
   dark: {
     text: '#fff',
@@ -27,10 +31,10 @@ export default {
     tabIconDefault: '#ccc',
     tabIconSelected: tintColorDark,
     textInput: '#fff',
-  },
-  led: {
-    on: '#f0f000',
-    off: '#000',
+    led: {
+      on: '#f0f000',
+      off: '#fff',
+    },
   },
   tabBar: {
     active: '#8226C9',

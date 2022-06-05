@@ -10,6 +10,7 @@ import { LedStateType } from '../providers/LedControlProvider';
 
 import useAPI from '../hooks/useAPI';
 import useGlobalSettings from '../hooks/useGlobalSettings';
+import useColorScheme from '../hooks/useColorScheme';
 
 export interface LedControlProps {
   id: number,
@@ -18,6 +19,7 @@ export interface LedControlProps {
 function LedControl(props: LedControlProps) {
   const {globalSettings, updateGlobalSettings} = useGlobalSettings();
   const { id } = props;
+  const colorScheme = useColorScheme();
 
   const {leds, updateLed} = useLedControl();
   const [ledState, setLedState] = useState<LedStateType>(
@@ -52,7 +54,7 @@ function LedControl(props: LedControlProps) {
       <FontAwesome
         name="lightbulb-o"
         size={25}
-        color={Colors.led[ledState]}
+        color={Colors[colorScheme].led[ledState]}
         style={{ marginRight: 15 }}
       />
     </Pressable>
