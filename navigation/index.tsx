@@ -9,12 +9,14 @@ import { createNativeStackNavigator } from '@react-navigation/native-stack';
 import * as React from 'react';
 import { ColorSchemeName } from 'react-native';
 
-import ModalScreen from '../screens/ModalScreen';
 import NotFoundScreen from '../screens/NotFoundScreen';
+import SettingsScreen from '../screens/SettingsScreen';
 import { RootStackParamList } from '../types';
 import LinkingConfiguration from './LinkingConfiguration';
 
 import BottomTabNavigator from './BottomTabNavigator';
+import SoundSettingsScreen from '../screens/settings/SoundSettingsScreen';
+import ControlScreen from '../screens/ControlScreen';
 
 export default function Navigation({ colorScheme }: { colorScheme: ColorSchemeName }) {
   return (
@@ -51,9 +53,9 @@ function RootNavigator() {
     <Stack.Navigator>
       <Stack.Screen name="Root" component={BottomTabNavigator} options={{ headerShown: false }} />
       <Stack.Screen name="NotFound" component={NotFoundScreen} options={{ title: 'Oops!' }} />
-      <Stack.Group screenOptions={{ presentation: 'modal' }}>
-        <Stack.Screen name="Modal" component={ModalScreen} />
-      </Stack.Group>
+      <Stack.Screen name="Settings" component={SettingsScreen} />
+      <Stack.Screen name="Control" component={ControlScreen} />
+      <Stack.Screen name="SoundSettings" component={SoundSettingsScreen} options={{headerTitle: 'Sound settings'}} />
     </Stack.Navigator>
   );
 }

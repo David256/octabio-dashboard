@@ -3,10 +3,13 @@ import { createBottomTabNavigator } from '@react-navigation/bottom-tabs';
 
 import Colors from '../constants/Colors';
 import useColorScheme from '../hooks/useColorScheme';
-import TabOneScreen from '../screens/TabOneScreen';
-import TabTwoScreen from '../screens/TabTwoScreen';
+import TerminalScreen from '../screens/TerminalScreen';
+import HomeScreen from '../screens/HomeScreen';
+import GraphScreen from '../screens/GraphScreen';
 import { RootTabParamList, RootTabScreenProps } from '../types';
-import { ColorSchemeName, Pressable } from 'react-native';
+
+import LedControls from '../components/LedControls';
+import Strings from '../constants/Strings';
 
 /**
  * A bottom tab navigator displays tab buttons on the bottom of the display to switch screens.
@@ -19,38 +22,44 @@ export default function BottomTabNavigator() {
 
   return (
     <BottomTab.Navigator
-      initialRouteName="TabOne"
+      initialRouteName="Home"
       screenOptions={{
         tabBarActiveTintColor: Colors[colorScheme].tint,
+        tabBarInactiveTintColor: Colors[colorScheme].tintInactive,
+        tabBarActiveBackgroundColor: Colors.tabBar.active,
+        tabBarInactiveBackgroundColor: Colors.tabBar.inactive,
       }}>
       <BottomTab.Screen
-        name="TabOne"
-        component={TabOneScreen}
-        options={({ navigation }: RootTabScreenProps<'TabOne'>) => ({
-          title: 'Tab One',
-          tabBarIcon: ({ color }) => <TabBarIcon name="code" color={color} />,
-          headerRight: () => (
-            <Pressable
-              onPress={() => navigation.navigate('Modal')}
-              style={({ pressed }) => ({
-                opacity: pressed ? 0.5 : 1,
-              })}>
-              <FontAwesome
-                name="info-circle"
-                size={25}
-                color={Colors[colorScheme].text}
-                style={{ marginRight: 15 }}
-              />
-            </Pressable>
-          ),
+        name="Terminal"
+        component={TerminalScreen} 
+        options={({ navigation }: RootTabScreenProps<'Terminal'>) => ({
+          /* title: 'Hola', */
+          headerTitle: `${Strings.appName} - Terminal`,
+          tabBarLabel : "",
+          tabBarIcon: ({ color }) => <TabBarIcon name="terminal" color={color} />,
+          headerRight: () => <LedControls />,
         })}
       />
       <BottomTab.Screen
-        name="TabTwo"
-        component={TabTwoScreen}
+        name="Home"
+        component={HomeScreen}
         options={{
-          title: 'Tab Two',
-          tabBarIcon: ({ color }) => <TabBarIcon name="code" color={color} />,
+          /* title: '', */
+          tabBarLabel : "",
+          headerTitle: `${Strings.appName}`,
+          tabBarIcon: ({ color }) => <TabBarIcon name="home" color={color} />,
+          headerRight: () => <LedControls />,
+        }}
+      />
+      <BottomTab.Screen
+        name="Graph"
+        component={GraphScreen}
+        options={{
+          /* title: '', */
+          tabBarLabel : "",
+          headerTitle: `${Strings.appName} - Graph`,
+          tabBarIcon: ({ color }) => <TabBarIcon name="pie-chart" color={color} />,
+          headerRight: () => <LedControls />,
         }}
       />
     </BottomTab.Navigator>

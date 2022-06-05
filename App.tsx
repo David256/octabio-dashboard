@@ -6,6 +6,10 @@ import useCachedResources from './hooks/useCachedResources';
 import useColorScheme from './hooks/useColorScheme';
 import Navigation from './navigation';
 
+import { LedControlProvider } from './providers/LedControlProvider';
+import { ApiProvider } from './providers/ApiProvider';
+import { GlobalSettingSProvider } from './providers/GlobalSettingSProvider';
+
 export default function App() {
   const isLoadingComplete = useCachedResources();
   const colorScheme = useColorScheme();
@@ -14,10 +18,16 @@ export default function App() {
     return null;
   } else {
     return (
-      <SafeAreaProvider>
-        <Navigation colorScheme={colorScheme} />
-        <StatusBar />
-      </SafeAreaProvider>
+      <GlobalSettingSProvider>
+        <ApiProvider>
+          <LedControlProvider>
+            <SafeAreaProvider>
+              <Navigation colorScheme={colorScheme} />
+              <StatusBar />
+            </SafeAreaProvider>
+          </LedControlProvider>
+        </ApiProvider>
+      </GlobalSettingSProvider>
     );
   }
 }
