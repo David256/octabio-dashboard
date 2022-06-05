@@ -1,7 +1,7 @@
-import React from "react";
+import React, { useEffect } from "react";
 import { Text } from './Themed';
 import * as Progress from 'react-native-progress';
-import { View, StyleSheet } from 'react-native'
+import { View, StyleSheet, Vibration } from 'react-native';
 
 export interface SensorStatsProps {
   title: string,
@@ -10,6 +10,15 @@ export interface SensorStatsProps {
 
 export default function SensorStats(props: SensorStatsProps) {
   const { title, percentage } = props;
+
+  useEffect(() => {
+    if (percentage > 0.8) {
+      Vibration.vibrate([3000, 2000, 2000]);
+    } else {
+      Vibration.cancel();
+    }
+  }, [percentage]);
+
   return (
     <View style={styles.container}>
       <Text style={styles.text}>{title}</Text>
