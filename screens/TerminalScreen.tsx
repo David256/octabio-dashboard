@@ -5,7 +5,7 @@ import { Button, NativeSyntheticEvent, ScrollView, StyleSheet, Text, TextInputSu
 
 import { RootTabScreenProps } from '../types';
 import { View, TextInput } from 'react-native';
-import Colors from '../constants/Colors';
+import Colors, { colorPrimary } from '../constants/Colors';
 import useColorScheme from '../hooks/useColorScheme';
 
 import Checkbox from '../components/Checkbok';
@@ -69,6 +69,7 @@ export default function TerminalScreen({ navigation }: RootTabScreenProps<'Termi
         </Checkbox>
         <Button
           title="Limpiar"
+          color={colorPrimary}
           onPress={() => setLines([])}
         />
       </View>
