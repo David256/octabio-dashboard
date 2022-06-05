@@ -42,7 +42,7 @@ function LedControl(props: LedControlProps) {
   useEffect(() => {
     updateLed(id, ledState);
     console.log(`change led #${id} to '${ledState}'`);
-    sendApiValue(`led_${id}`, ledState);
+    sendApiValue(`led${id}`, ledState);
 
     updateGlobalSettings(`led${id}`, ledState);
   }, [ledState]);
