@@ -59,29 +59,29 @@ export function ApiProvider(props: ApiProviderProps) {
   }
 
   useEffect(() => {
-    update();
-    return;
+    // update();
+    // return;
     setInterval(async () => {
       try {
         const response = await fetch(`http://${endpoint.host}:${endpoint.port}${endpoint.path}`, { method: 'GET'});
         const json = await response.json();
-        console.log(json);
+        // console.log(json);
 
         (json as any[]).forEach((item) => {
-          console.log('name', item.nombre);
+          // console.log('name', item.nombre);
           if (item.nombre === 'pot') {
             const value = ((item.dato as number) / 1023);
-            console.log(value);
+            // console.log(value);
             if (value !== sensorData.power) {
               setSensorData({...sensorData, power: value});
-              console.log('updated');
+              // console.log('updated');
             }
           } else if (item.nombre === 'fot') {
             const value = ((item.dato as number) / 1023);
-            console.log(value);
+            // console.log(value);
             if (value !== sensorData.light) {
               setSensorData({...sensorData, light: value});
-              console.log('updated');
+              // console.log('updated');
             }
           }
         });
@@ -101,7 +101,7 @@ export function ApiProvider(props: ApiProviderProps) {
     // motor={1,2}, estado={on,off}
     let led = null;
     let motor = null;
-    let estado = value ? 'on' : 'off';
+    let estado = value;
     if (varname === 'motor1' || varname === 'motor2') {
       if (varname === 'motor1') {
         motor = '1';
@@ -111,8 +111,9 @@ export function ApiProvider(props: ApiProviderProps) {
       console.log('motor', motor, estado);
 
       fetch(
-        `http://${endpoint.host}:${endpoint.port}${endpoint.path}/mobil/data`,
-        { method: 'POST', body: JSON.stringify([{tipo: 'motor', nombre: motor, estado}]) }
+        `http://${endpoint.host}:${endpoint.port}${endpoint.path}`,
+        { method: 'POST',
+        body: JSON.stringify([{tipo: 'motor', nombre: motor, estado: estado ? 'go' : 'off'}]) }
       );
     } else if (varname === 'led1' || varname === 'led2') {
       if (varname === 'led1') {
@@ -123,7 +124,7 @@ export function ApiProvider(props: ApiProviderProps) {
       console.log('led', led, estado);
 
       fetch(
-        `http://${endpoint.host}:${endpoint.port}${endpoint.path}/mobil/data`,
+        `http://${endpoint.host}:${endpoint.port}${endpoint.path}`,
         { method: 'POST', body: JSON.stringify([{tipo: 'led', nombre: led, estado}]) }
       );
     }
