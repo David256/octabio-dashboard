@@ -4,8 +4,8 @@ import LedControl from "./LedControl";
 export default function LedControls() {
   return (
     <View style={styles.container}>
-      <LedControl id={0} />
       <LedControl id={1} />
+      <LedControl id={2} />
     </View>
   );
 }
