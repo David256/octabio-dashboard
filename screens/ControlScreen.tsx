@@ -23,8 +23,11 @@ export default function ControlScreen(props: ControlScreenProps) {
 
   useEffect(() => {
     sendApiValue('motor1', motor1);
+  }, [motor1]);
+
+  useEffect(() => {
     sendApiValue('motor2', motor2);
-  }, [motor1, motor2]);
+  }, [motor2]);
 
   return (
     <View style={styles.container}>
