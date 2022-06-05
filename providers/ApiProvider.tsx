@@ -1,5 +1,9 @@
 import * as React from 'react';
 import { useEffect, useState } from 'react';
+import useSimulation, { useKaoticSimulation, useSmartSimulation } from '../hooks/useSimulation';
+
+const smartSimulation = useSmartSimulation();
+const kaoticSimulation = useKaoticSimulation();
 
 const enableVariables = [
   'distance',
@@ -11,13 +15,13 @@ const enableVariables = [
   'log',
 ]
 
-const testData = () => {
+const testData = (lastData: SensorDataType) => {
   return {
-    distance: Math.random(),
-    co: Math.random(),
-    power: Math.random(),
-    light: Math.random(),
-    humidity: Math.random(),
+    distance: kaoticSimulation((lastData.distance as number) || 0),
+    co: smartSimulation((lastData.co as number) || 0),
+    power: kaoticSimulation((lastData.power as number) || 0),
+    light: kaoticSimulation((lastData.light as number) || 0),
+    humidity: smartSimulation((lastData.humidity as number) || 0),
     pulse: Math.floor(Math.random()),
 
     log: 'input\n5434565',
@@ -48,7 +52,7 @@ export function ApiProvider(props: ApiProviderProps) {
   const [sensorData, setSensorData] = useState<SensorDataType>({});
 
   const update = () => {
-    setSensorData(testData());
+    setSensorData(testData(sensorData));
 
     setTimeout(() => update(), 1000);
   }
