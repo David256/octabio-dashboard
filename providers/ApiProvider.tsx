@@ -7,14 +7,29 @@ const smartSimulation = useSmartSimulation();
 const kaoticSimulation = useKaoticSimulation();
 
 const enableVariables = [
-  'distance',
-  'co',
-  'power',
-  'light',
-  'humidity',
-  'pulse',
+  // 'distance',
+  // 'co',
+  // 'power',
+  // 'light',
+  // 'humidity',
+  // 'pulse',
   'log',
-]
+];
+
+const errorMessages = [
+  'todo falló.',
+  'alta temperatura',
+  'niveles críticos de CO',
+  'el dólar cerró a...',
+  'humedad baja',
+  'servomotor bloqueado',
+  'escotilla abierta',
+];
+
+const getRandomErrorMessage = () => {
+  const index = Math.floor(Math.random() * errorMessages.length);
+  return errorMessages[index];
+}
 
 const testData = (lastData: SensorDataType) => {
   return {
@@ -92,6 +107,9 @@ export function ApiProvider(props: ApiProviderProps) {
   }, []);
 
   const getApiValue: GetApiValueType = (varname) => {
+    if (varname === 'log') {
+      return `Error ${Math.floor(Math.random() * 10 + 20)}: ${getRandomErrorMessage()}`;
+    }
     return sensorData[varname] || 0;
   }
 
