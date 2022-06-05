@@ -1,7 +1,7 @@
 import * as React from 'react';
 import { useEffect, useState } from 'react';
 
-import { NativeSyntheticEvent, ScrollView, StyleSheet, Text, TextInputSubmitEditingEventData } from 'react-native';
+import { Button, NativeSyntheticEvent, ScrollView, StyleSheet, Text, TextInputSubmitEditingEventData } from 'react-native';
 
 import { RootTabScreenProps } from '../types';
 import { View, TextInput } from 'react-native';
@@ -55,12 +55,23 @@ export default function TerminalScreen({ navigation }: RootTabScreenProps<'Termi
 
   return (
     <View style={styles.container}>
-      <Checkbox
-        value={globalSettings.enableLog}
-        onCheck={onCheck}
-      >
-        Recibir mensajes
-      </Checkbox>
+      <View style={{
+        flex: 0,
+        flexDirection: 'row',
+        justifyContent: 'space-between',
+        height: 32,
+      }}>
+        <Checkbox
+          value={globalSettings.enableLog}
+          onCheck={onCheck}
+        >
+          Recibir mensajes
+        </Checkbox>
+        <Button
+          title="Limpiar"
+          onPress={() => setLines([])}
+        />
+      </View>
       <ScrollView
         style={styles.scrollable}
         showsVerticalScrollIndicator
