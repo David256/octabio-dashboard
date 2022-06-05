@@ -24,12 +24,15 @@ export default function TerminalScreen({ navigation }: RootTabScreenProps<'Termi
   const [lines, setLines] = useState<string[]>([]);
 
   const updateValues = () => {
-    setIncommingText(api.getApiValue('log') as string);
+    const value = api.getApiValue('log') as string
+    setIncommingText(value);
+    console.log('!!', value);
   };
 
   useEffect(() => {
+    console.log(enableReceiveLog)
     if (enableReceiveLog && incommingText) {
-      setLines((last) => [...last, ...incommingText.split('\n')]);
+      setLines((last) => [...last, ...incommingText.split('\n').map((text) => `>> ${text}`)]);
       setIncommingText(null);
     }
   }, [incommingText, enableReceiveLog]);
@@ -43,12 +46,9 @@ export default function TerminalScreen({ navigation }: RootTabScreenProps<'Termi
   const onSubmit = (e: NativeSyntheticEvent<TextInputSubmitEditingEventData>) => {
     const sentText: string = e.nativeEvent.text;
 
-
     api.sendApiValue('text', sentText);
-    setLines((last) => [...last, sentText]);
+    setLines((last) => [...last, '<< '+sentText]);
     setText('');
-
-    // TODO: send sentText using useAPI
   }
   
   const onCheck = (isChecked: boolean) => {
