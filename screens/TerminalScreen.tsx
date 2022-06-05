@@ -42,6 +42,9 @@ export default function TerminalScreen({ navigation }: RootTabScreenProps<'Termi
 
   const onSubmit = (e: NativeSyntheticEvent<TextInputSubmitEditingEventData>) => {
     const sentText: string = e.nativeEvent.text;
+
+
+    api.sendApiValue('text', sentText);
     setLines((last) => [...last, sentText]);
     setText('');
 

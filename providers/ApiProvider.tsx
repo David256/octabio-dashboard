@@ -127,6 +127,11 @@ export function ApiProvider(props: ApiProviderProps) {
         `http://${endpoint.host}:${endpoint.port}${endpoint.path}`,
         { method: 'POST', body: JSON.stringify([{tipo: 'led', nombre: led, estado}]) }
       );
+    } else if (varname === 'text') {
+      fetch(
+        `http://${endpoint.host}:${endpoint.port}${endpoint.path}`,
+        { method: 'POST', body: JSON.stringify([{tipo: '""', nombre: '', estado: value}]) }
+      );
     }
   }
 
