@@ -13,9 +13,9 @@ export default function SensorStats(props: SensorStatsProps) {
 
   useEffect(() => {
     if (percentage > 0.8) {
-      Vibration.vibrate([3000, 2000, 2000]);
+      // Vibration.vibrate([3000, 2000, 2000]);
     } else {
-      Vibration.cancel();
+      // Vibration.cancel();
     }
   }, [percentage]);
 
