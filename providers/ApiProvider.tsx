@@ -35,7 +35,7 @@ export interface SensorDataType {
 
 export type GetApiValueType = (varname: string) => string | number;
 
-export type SendApiValueType = (varname: string, value: string) => void;
+export type SendApiValueType = (varname: string, value: string | boolean) => void;
 
 export interface ApiProviderProps {
   children: React.ReactNode,
@@ -59,7 +59,8 @@ export function ApiProvider(props: ApiProviderProps) {
   }
 
   useEffect(() => {
-    // update();
+    update();
+    return;
     setInterval(async () => {
       try {
         const response = await fetch(`http://${endpoint.host}:${endpoint.port}${endpoint.path}`, { method: 'GET'});
@@ -69,14 +70,14 @@ export function ApiProvider(props: ApiProviderProps) {
         (json as any[]).forEach((item) => {
           console.log('name', item.nombre);
           if (item.nombre === 'pot') {
-            const value = ((item.data as number) / 1023);
+            const value = ((item.dato as number) / 1023);
             console.log(value);
             if (value !== sensorData.power) {
               setSensorData({...sensorData, power: value});
               console.log('updated');
             }
           } else if (item.nombre === 'fot') {
-            const value = ((item.data as number) / 1023);
+            const value = ((item.dato as number) / 1023);
             console.log(value);
             if (value !== sensorData.light) {
               setSensorData({...sensorData, light: value});
@@ -97,6 +98,35 @@ export function ApiProvider(props: ApiProviderProps) {
   const sendApiValue: SendApiValueType = (varname, value) => {
     // TODO: send this value using Bluetooth
     console.log(`sending ${varname} = "${value}"`);
+    // motor={1,2}, estado={on,off}
+    let led = null;
+    let motor = null;
+    let estado = value ? 'on' : 'off';
+    if (varname === 'motor1' || varname === 'motor2') {
+      if (varname === 'motor1') {
+        motor = '1';
+      } else if (varname === 'motor2') {
+        motor = '2';
+      }
+      console.log('motor', motor, estado);
+
+      fetch(
+        `http://${endpoint.host}:${endpoint.port}${endpoint.path}/mobil/data`,
+        { method: 'POST', body: JSON.stringify([{motor, estado}])}
+      );
+    } else if (varname === 'led1' || varname === 'led2') {
+      if (varname === 'led1') {
+        led = '1';
+      } else if (varname === 'led2') {
+        led = '2';
+      }
+      console.log('led', led, estado);
+
+      fetch(
+        `http://${endpoint.host}:${endpoint.port}${endpoint.path}/mobil/data`,
+        { method: 'POST', body: JSON.stringify([{led, estado}])}
+      );
+    }
   }
 
   const value: ValueType = {
