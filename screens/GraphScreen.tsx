@@ -42,7 +42,7 @@ const Graph = (props: GraphProps) => {
         legend,
       }}
 
-      width={Dimensions.get("window").width} // from react-native
+      width={Dimensions.get("window").width - 10} // from react-native
       height={220}
       yAxisInterval={1} // optional, defaults to 1
       chartConfig={{
@@ -79,39 +79,66 @@ export default function GraphScreen() {
   const [historyPower, setHistoryPower] = useState<number[]>(initialHistory);
   const [historyHumidity, setHistoryHumidity] = useState<number[]>(initialHistory);
 
-  const [aLight, setALight] = useState(Number.parseFloat(api.data.light as string));
-  const [aCO, setACO] = useState(Number.parseFloat(api.data.co as string));
-  const [aDistance, setADistance] = useState(Number.parseFloat(api.data.distance as string));
-  const [aPower, setAPower] = useState(Number.parseFloat(api.data.power as string));
-  const [aHumidity, setAHumidity] = useState(Number.parseFloat(api.data.humidity as string));
+  // const [aLight, setALight] = useState(Number.parseFloat(api.data.light as string));
+  // const [aCO, setACO] = useState(Number.parseFloat(api.data.co as string));
+  // const [aDistance, setADistance] = useState(Number.parseFloat(api.data.distance as string));
+  // const [aPower, setAPower] = useState(Number.parseFloat(api.data.power as string));
+  // const [aHumidity, setAHumidity] = useState(Number.parseFloat(api.data.humidity as string));
 
 
   const update = () => {
-    setHistoryLight((last) => [...last, aLight]);
-    setHistoryCO((last) => [...last, aCO]);
-    setHistoryDistance((last) => [...last, aDistance]);
-    setHistoryPower((last) => [...last, aPower]);
-    setHistoryHumidity((last) => [...last, aHumidity]);
+    // setHistoryLight((last) => [...last, aLight]);
+    // setHistoryCO((last) => [...last, aCO]);
+    // setHistoryDistance((last) => [...last, aDistance]);
+    // setHistoryPower((last) => [...last, aPower]);
+    // setHistoryHumidity((last) => [...last, aHumidity]);
 
-    // Check big list
-    if (historyLight.length > 7) historyLight.splice(0, 1);
-    if (historyCO.length > 7) historyCO.splice(0, 1);
-    if (historyDistance.length > 7) historyDistance.splice(0, 1);
-    if (historyPower.length > 7) historyPower.splice(0, 1);
-    if (historyHumidity.length > 7) historyHumidity.splice(0, 1);
+    // setHistoryLight((last) => [...last, Number.parseFloat(api.data.light as string)]);
+    // setHistoryCO((last) => [...last, Number.parseFloat(api.data.co as string)]);
+    // setHistoryDistance((last) => [...last, Number.parseFloat(api.data.distance as string)]);
+    // setHistoryPower((last) => [...last, Number.parseFloat(api.data.power as string)]);
+    // setHistoryHumidity((last) => [...last, Number.parseFloat(api.data.humidity as string)]);
 
-    setALight(Number.parseFloat(api.getApiValue('light') as string))
-    setACO(Number.parseFloat(api.getApiValue('co') as string))
-    setADistance(Number.parseFloat(api.getApiValue('distance') as string))
-    setAPower(Number.parseFloat(api.getApiValue('power') as string))
-    setAHumidity(Number.parseFloat(api.getApiValue('humidity') as string))
+    setHistoryLight((last) => [...last, Math.random()]);
+    setHistoryCO((last) => [...last, Math.random()]);
+    setHistoryDistance((last) => [...last, Math.random()]);
+    setHistoryPower((last) => [...last, Math.random()]);
+    setHistoryHumidity((last) => [...last, Math.random()]);
+
+    // console.log(Number.parseFloat(api.data.distance as string));
 
     setTimeout(() => update(), 1000);
   }
 
-  // useEffect(() => {
-  //   update();
-  // }, []);
+  useEffect(() => {
+    update();
+  }, []);
+
+  useEffect(() => {
+    // Check big list
+    // if (historyLight.length > 7) setHistoryLight(historyLight.slice(0, 7));
+    // if (historyCO.length > 7) setHistoryCO(historyCO.slice(0, 7));
+    // if (historyDistance.length > 7) setHistoryDistance(historyDistance.slice(0, 7));
+    // if (historyPower.length > 7) setHistoryPower(historyPower.slice(0, 7));
+    // if (historyHumidity.length > 7) setHistoryHumidity(historyHumidity.slice(0, 7));
+    // console.log('update slicing');
+  }, [
+    historyLight, historyCO, historyDistance, historyPower, historyHumidity,
+    setHistoryLight, setHistoryCO, setHistoryDistance, setHistoryPower, setHistoryHumidity,
+  ]);
+
+  useEffect(() => {
+    // setALight(Number.parseFloat(api.data.light as string))
+    // setACO(Number.parseFloat(api.data.co as string))
+    // setADistance(Number.parseFloat(api.data.distance as string))
+    // setAPower(Number.parseFloat(api.data.power as string))
+    // setAHumidity(Number.parseFloat(api.data.humidity as string))
+    // console.log('update inputs');
+  }, [api.data.light,
+      api.data.co,
+      api.data.distance,
+      api.data.power,
+      api.data.humidity]);
 
   return (
     <View style={styles.container}>
@@ -138,6 +165,7 @@ export default function GraphScreen() {
 const styles = StyleSheet.create({
   container: {
     flex: 1,
+    padding: 5,
     alignItems: 'center',
     justifyContent: 'flex-start',
   },
@@ -146,6 +174,7 @@ const styles = StyleSheet.create({
     fontWeight: 'bold',
   },
   scrollable: {
+    padding: 5,
     height: '100%',
   }
 });
