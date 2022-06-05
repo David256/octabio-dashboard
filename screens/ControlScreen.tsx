@@ -7,7 +7,6 @@ import Separator from '../components/Separator';
 import { RootStackParamList } from '../types';
 import { Switch } from '../components/Switch';
 import { MotorSetter } from '../components/MotorSetter';
-
 import { useState } from 'react';
 
 export interface ControlScreenProps {
