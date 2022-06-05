@@ -14,6 +14,7 @@ import {
   StackedBarChart
 } from 'react-native-chart-kit';
 import { ScrollView } from 'react-native-gesture-handler';
+import useSimulation, { useKaoticSimulation, useSmartSimulation } from '../hooks/useSimulation';
 
 const initialHistory = [0, 0, 0, 0, 0, 0, 0, 0];
 
@@ -72,6 +73,9 @@ const Graph = (props: GraphProps) => {
 
 export default function GraphScreen() {
   const api = useAPI();
+  const simulation = useSimulation();
+  const kaoticSimulation = useKaoticSimulation();
+  const smartSimulation = useSmartSimulation();
 
   const [historyLight, setHistoryLight] = useState<number[]>(initialHistory);
   const [historyCO, setHistoryCO] = useState<number[]>(initialHistory);
@@ -99,11 +103,11 @@ export default function GraphScreen() {
     // setHistoryPower((last) => [...last, Number.parseFloat(api.data.power as string)]);
     // setHistoryHumidity((last) => [...last, Number.parseFloat(api.data.humidity as string)]);
 
-    setHistoryLight((last) => [...last, Math.random()]);
-    setHistoryCO((last) => [...last, Math.random()]);
-    setHistoryDistance((last) => [...last, Math.random()]);
-    setHistoryPower((last) => [...last, Math.random()]);
-    setHistoryHumidity((last) => [...last, Math.random()]);
+    setHistoryLight((last) => [...last, simulation()]);
+    setHistoryCO((last) => [...last, smartSimulation(last.slice(-1)[0])]);
+    setHistoryDistance((last) => [...last, kaoticSimulation(last.slice(-1)[0])]);
+    setHistoryPower((last) => [...last, kaoticSimulation(last.slice(-1)[0])]);
+    setHistoryHumidity((last) => [...last, smartSimulation(last.slice(-1)[0])]);
 
     // console.log(Number.parseFloat(api.data.distance as string));
 
