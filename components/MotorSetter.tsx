@@ -1,7 +1,10 @@
 import * as React from 'react';
 import { useState } from 'react';
 
-import { View, StyleSheet, TextInput, Text } from 'react-native';
+import { View, StyleSheet, TextInput } from 'react-native';
+import Colors from '../constants/Colors';
+import useColorScheme from '../hooks/useColorScheme';
+import { Text } from './Themed';
 
 export interface MotorSetterProps {
   name: string,
@@ -16,6 +19,8 @@ export function MotorSetter(props: MotorSetterProps) {
     setValue=() => {},
   } = props;
 
+  const colorScheme = useColorScheme();
+
   const [stringValue, setStringValue] = useState(value.toString());
 
   const sendValue = () => {
@@ -29,7 +34,7 @@ export function MotorSetter(props: MotorSetterProps) {
     <View style={styles.container}>
       <Text>{name}</Text>
       <TextInput
-        style={styles.input}
+        style={[styles.input, {borderColor: Colors[colorScheme].led.off, color: Colors[colorScheme].led.off}]}
         onBlur={() => {}}
         value={stringValue}
         onChangeText={setStringValue}
@@ -56,7 +61,6 @@ const styles = StyleSheet.create({
     minWidth: 100,
     height: 40,
     padding: 5,
-    borderColor: '#000',
     borderStyle: 'solid',
   },
 });
