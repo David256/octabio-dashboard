@@ -32,8 +32,10 @@ function LedControl(props: LedControlProps) {
     // Change the led state
     if (leds[id] === 'on') {
       setLedState('off');
+      sendApiValue(`led${id}`, 'off');
     } else {
       setLedState('on');
+      sendApiValue(`led${id}`, 'on');
     }
   };
 
